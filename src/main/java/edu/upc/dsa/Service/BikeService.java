@@ -83,90 +83,41 @@ public class BikeService {
             LinkedList<Bike> bikes = this.mb.bikesByStationOrderByKms(idStation);
             GenericEntity<LinkedList<Bike>> entity = new GenericEntity<LinkedList<Bike>>(bikes){};
             return Response.status(201).entity(entity).build();
-        } catch (StationNotFoundException e) {
+        } 
+        
+        catch (StationNotFoundException e) {
             e.printStackTrace();
             return Response.status(404).build();
         }
     }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    //Dame un track
-    @GET
-    @ApiOperation(value = "get a Track", notes = "asdasd")
+               
+                   
+    //Add bike
+    @POST
+    @ApiOperation(value = "add bike", notes = "ksdj")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successful", response = Track.class),
-            @ApiResponse(code = 404, message = "Track not found")
+            @ApiResponse(code = 404, message = "Error")
     })
-    //En el Path damo id ya que la necesita para encontrar
-    @Path("/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    //Como pasas id -->@PathParam("id") int id
-    public Response getTrack(@PathParam("id") int id) {
-        //Guardas en t la track a partir del id
-        Track t = this.tm.getTrack(id);
-        //Si no existe da 404
-        if (t == null)
-            return Response.status(404).build();
-        else
-            return Response.status(201).entity(t).build();
-    }
-    //Borrar
-    @DELETE
-    @ApiOperation(value = "delete a Track", notes = "asdasd")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful"),
-            @ApiResponse(code = 404, message = "Track not found")
-    })
-    @Path("/{id}")
-    public Response deleteTrack(@PathParam("id") int id) {
-        Track t = this.tm.getTrack(id);
-        if (t == null)
-            return Response.status(404).build();
-        else
-            //deleteTrack declarado en interfície
-            this.tm.deleteTrack(id);
-            return Response.status(201).build();
-    }
-    //Actualizar track
-    @PUT
-    @ApiOperation(value = "update a Track", notes = "asdasd")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful"),
-            @ApiResponse(code = 404, message = "Track not found")
-    })
-    //Como al actulizar no nos da la id sino el track entero hay que encontrar primero id
-    @Path("/")
-    public Response updateTrack(Track track) {
-        Track t = this.tm.getTrack(track.getId());
-        if (t == null)
-            return Response.status(404).build();
-        else
-            //updateTrack declarado en interfície
-            this.tm.updateTrack(t);
-            return Response.status(201).build();
-    }
+    
+    @Path("/addBike")
+    @Produces(MediaType.APPLICATION_JSON) 
+        
+    public Response addBike(Bike bike) {
+        String idBike = bike.getIdBike();
+        String description = bike.getDescription();
+        double kms = bike.getKm();
+        String idStation = bike.getIdStation();
 
-
-    //Crear cancion
-    @POST
-    @ApiOperation(value = "create a new Track", notes = "asdasd")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response= Track.class),
-    })
-
-    @Path("/")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response newTrack(Track track) {
-        this.tm.addTrack(track);
-        return Response.status(201).entity(track).build();
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      
     }
-
-}
+    
